@@ -1,5 +1,6 @@
 package com.example.delivery_service.controller;
 
+import com.example.delivery_service.dto.DeliveryCancelRequest;
 import com.example.delivery_service.dto.DeliveryRequest;
 import com.example.delivery_service.model.DeliveryTask;
 import com.example.delivery_service.service.DeliveryService;
@@ -19,6 +20,16 @@ public class DeliveryController {
         try {
             return ResponseEntity.ok(deliveryService.createDelivery(request));
         } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<Void> cancelDelivery(@RequestBody DeliveryCancelRequest request) {
+        try {
+            deliveryService.cancel(request.getOrderId());
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
         }
     }

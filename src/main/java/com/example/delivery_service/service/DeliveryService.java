@@ -6,6 +6,9 @@ import com.example.delivery_service.repository.DeliveryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class DeliveryService {
@@ -24,5 +27,11 @@ public class DeliveryService {
                 .build();
 
         return repository.save(task);
+    }
+
+    // ✅ Компенсационное действие для Saga: отмена доставки
+    public void cancel(UUID orderId) {
+        Optional<DeliveryTask> task = repository.findByOrderId(orderId);
+        task.ifPresent(repository::delete);
     }
 }
