@@ -10,6 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DeliveryRequest {
     private UUID orderId;
-    private String courierName;
-    private LocalDateTime deliverySlot;
+    private int deliverySlotId;
+    private java.time.LocalDate deliveryDate;
 }

@@ -21,8 +21,8 @@ public class DeliveryTask {
     private UUID orderId;
 
     @Column(nullable = false)
-    private String courierName;
+    private int deliverySlotId;
 
     @Column(nullable = false)
-    private LocalDateTime deliverySlot;
+    private java.time.LocalDate deliveryDate;
 }

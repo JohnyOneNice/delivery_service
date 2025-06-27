@@ -2,6 +2,7 @@ package com.example.delivery_service.service;
 
 import com.example.delivery_service.dto.DeliveryRequest;
 import com.example.delivery_service.model.DeliveryTask;
+import com.example.delivery_service.model.DeliverySlot;
 import com.example.delivery_service.repository.DeliveryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ public class DeliveryService {
         if (repository.existsByOrderId(request.getOrderId())) {
             throw new RuntimeException("Уже существует доставка для заказа");
         }
-
+        // Проверка валидности id слота
+        DeliverySlot slot = DeliverySlot.fromId(request.getDeliverySlotId());
         DeliveryTask task = DeliveryTask.builder()
                 .orderId(request.getOrderId())
-                .courierName(request.getCourierName())
-                .deliverySlot(request.getDeliverySlot())
+                .deliverySlotId(slot.getId())
+                .deliveryDate(request.getDeliveryDate())
                 .build();
-
         return repository.save(task);
     }
 
