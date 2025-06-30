@@ -1,4 +1,4 @@
 FROM amazoncorretto:17-alpine
-COPY deliv_service3.jar delivproject3.jar
+COPY deliv_service6.jar delivproject6.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","delivproject3.jar"]
+ENTRYPOINT ["java","-jar","delivproject6.jar"]

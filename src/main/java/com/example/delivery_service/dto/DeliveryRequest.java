@@ -7,7 +7,8 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
+@Builder
 public class DeliveryRequest {
     private UUID orderId;
     private int deliverySlotId;
