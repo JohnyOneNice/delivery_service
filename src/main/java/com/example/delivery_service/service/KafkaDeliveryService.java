@@ -3,6 +3,7 @@ package com.example.delivery_service.service;
 import com.example.delivery_service.dto.DeliveryRequest;
 import com.example.delivery_service.model.DeliveryTask;
 import com.example.delivery_service.dto.BillingWithdrawedEvent;
+import com.example.delivery_service.dto.DeliveryOkEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,10 +47,7 @@ public class KafkaDeliveryService {
     }
 
     public void publishDeliveryOk(UUID orderId, UUID userId) {
-        Map<String, Object> event = Map.of(
-                "orderId", orderId.toString(),
-                "userId", userId.toString()
-        );
+        DeliveryOkEvent event = new DeliveryOkEvent(orderId.toString(), userId.toString());
         log.info("Публикую событие в {}: {}", deliveryOkTopic, event);
         kafkaTemplate.send(deliveryOkTopic, event)
             .whenComplete((result, ex) -> {
